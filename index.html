@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SamadhanSetu — Civic Innovation Platform</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS Engine with SamadhanSetu Exact Stitch Theme Token Config -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#1e106f",
+            "primary-container": "#352c85",
+            "on-primary-container": "#a199f8",
+            "secondary": "#5b3fd6",
+            "secondary-container": "#745bf0",
+            "on-secondary-container": "#fffbff",
+            "tertiary": "#002a25",
+            "tertiary-container": "#00423b",
+            "on-tertiary-container": "#3fb5a5",
+            "tertiary-fixed": "#86f6e4",
+            "tertiary-fixed-dim": "#68d9c8",
+            "surface": "#fcf8ff",
+            "surface-bright": "#fcf8ff",
+            "surface-dim": "#dcd8e1",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f6f2fa",
+            "surface-container": "#f0ecf5",
+            "surface-container-high": "#ebe6ef",
+            "surface-container-highest": "#e5e1e9",
+            "surface-variant": "#e5e1e9",
+            "background": "#fcf8ff",
+            "on-background": "#1c1b21",
+            "on-surface": "#1c1b21",
+            "on-surface-variant": "#474551",
+            "outline": "#787583",
+            "outline-variant": "#c8c4d3",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-error": "#ffffff",
+            "brand": {
+              "indigo": "#352C85",
+              "violet": "#5B3FD6",
+              "teal": "#159B8C",
+              "warm-white": "#fcf8ff"
+            }
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          spacing: {
+            "container-max": "1280px",
+            "gutter": "24px",
+            "margin-desktop": "64px",
+            "margin-mobile": "20px",
+            "stack-sm": "16px",
+            "stack-md": "32px",
+            "stack-lg": "48px"
+          },
+          fontFamily: {
+            "display-lg": ["Hanken Grotesk", "sans-serif"],
+            "headline-md": ["Hanken Grotesk", "sans-serif"],
+            "headline-sm": ["Hanken Grotesk", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "label-sm": ["Inter", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Base Custom Styles -->
+  <link rel="stylesheet" href="./src/css/design-system.css">
+</head>
+<body class="bg-brand-warm-white text-on-background font-body-md antialiased selection:bg-brand-indigo selection:text-white flex flex-col min-h-screen">
+  
+  <!-- Root App View Container -->
+  <div id="app-root" class="flex flex-col min-h-screen w-full"></div>
+
+  <!-- Entry Point Script -->
+  <script type="module" src="./src/js/main.js"></script>
+</body>
+</html>
