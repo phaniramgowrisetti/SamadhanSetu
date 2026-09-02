@@ -41,9 +41,20 @@ import { renderValidationQueueView } from './views/ValidationQueueView.js';
 import { renderPatternValidationView } from './views/PatternValidationView.js';
 import { renderChallengeFormationView } from './views/ChallengeFormationView.js';
 import { renderChallengePublishedView } from './views/ChallengePublishedView.js';
+import { renderPublishedChallengesView } from './views/PublishedChallengesView.js';
+import { renderStudentProposalsView } from './views/StudentProposalsView.js';
+import { renderProposalDetailView } from './views/ProposalDetailView.js';
+import { renderTeamFormationView } from './views/TeamFormationView.js';
+import { renderProjectDetailView } from './views/ProjectDetailView.js';
+import { renderMilestoneDetailView } from './views/MilestoneDetailView.js';
+import { renderCollaborationsView } from './views/CollaborationsView.js';
+import { renderUniversityProfileView } from './views/UniversityProfileView.js';
+import { renderProjectsView } from './views/ProjectsView.js';
+import { renderCompletedSolutionView } from './views/CompletedSolutionView.js';
 
 import { renderCitizenAccessView } from './views/CitizenAccessView.js';
 import { renderCitizenSignInView } from './views/CitizenSignInView.js';
+import { renderUniversityAccessView } from './views/UniversityAccessView.js';
 
 // Register Public Routes
 router.register('intro', renderIntroView);
@@ -55,7 +66,8 @@ router.register('citizen-access', renderCitizenAccessView);
 router.register('citizen-signin', renderCitizenSignInView);
 router.register('/join/citizen/signin', renderCitizenSignInView);
 router.register('/join/student', renderStudentExplorerView);
-router.register('/join/mentor', renderMentorDashboardView);
+router.register('/join/mentor', renderUniversityAccessView);
+router.register('university-access', renderUniversityAccessView);
 router.register('/join/partner', renderPartnerPlaceholderView);
 router.register('auth', renderAuthView);
 router.register('how-it-works', renderHowItWorksView);
@@ -89,12 +101,24 @@ router.register('community-signal-confirmed', renderCommunitySignalConfirmedView
 router.register('community-patterns', renderCommunityPatternsView);
 router.register('community-pattern-detail', renderCommunityPatternDetailView);
 
-// Phase 7 Validation & Challenge Formation Routes
+// Phase 7 Validation & Challenge Formation Routes (Complete University Portal)
 router.register('mentor-dashboard', renderMentorDashboardView);
+router.register('university-dashboard', renderMentorDashboardView);
+router.register('university-hub', renderMentorDashboardView);
 router.register('validation-queue', renderValidationQueueView);
 router.register('pattern-validation', renderPatternValidationView);
 router.register('challenge-formation', renderChallengeFormationView);
 router.register('challenge-published', renderChallengePublishedView);
+router.register('published-challenges', renderPublishedChallengesView);
+router.register('student-proposals', renderStudentProposalsView);
+router.register('proposal-detail', renderProposalDetailView);
+router.register('team-formation', renderTeamFormationView);
+router.register('project-detail', renderProjectDetailView);
+router.register('milestone-detail', renderMilestoneDetailView);
+router.register('university-collaborations', renderCollaborationsView);
+router.register('university-profile', renderUniversityProfileView);
+router.register('university-projects', renderProjectsView);
+router.register('completed-solution', renderCompletedSolutionView);
 
 // Role Dashboards
 router.register('partner-dashboard', renderPartnerPlaceholderView);
@@ -237,6 +261,20 @@ function setupGlobalInteractiveListeners() {
         if (action === 'signin') {
           router.navigate('citizen-signin');
         } else if (action === 'signup') {
+          router.navigate('auth');
+        }
+      });
+    });
+  }
+
+  // University / Mentor Gateway Event Listener
+  if (currentRoute === '/join/mentor' || currentRoute === 'university-access') {
+    document.querySelectorAll('[data-university-action]').forEach(card => {
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        const action = card.getAttribute('data-university-action');
+        setRole('mentor');
+        if (action === 'signin' || action === 'register') {
           router.navigate('auth');
         }
       });

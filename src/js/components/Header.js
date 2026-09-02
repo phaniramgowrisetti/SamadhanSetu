@@ -5,25 +5,122 @@ import { AppState } from '../app.js';
  * Automatically toggles between Guest Navbar and Authenticated Citizen Navbar.
  */
 export function renderHeader(activeRoute = 'intro') {
-  const isAuthenticated = AppState.isAuthenticated || (AppState.userRole === 'citizen' && activeRoute !== 'intro' && activeRoute !== 'landing');
+  const isMentor = AppState.userRole === 'mentor' || activeRoute === 'mentor-dashboard' || activeRoute === 'university-dashboard' || activeRoute === 'university-hub' || activeRoute === 'validation-queue' || activeRoute === 'pattern-validation' || activeRoute === 'challenge-formation' || activeRoute === 'challenge-published';
+  const isAuthenticated = AppState.isAuthenticated || (AppState.userRole === 'citizen' && activeRoute !== 'intro' && activeRoute !== 'landing') || isMentor;
   const user = AppState.userProfile || { name: 'Citizen User' };
   const unreadCount = AppState.notifications ? AppState.notifications.filter(n => n.unread).length : 2;
 
   return `
-    <header class="bg-white/95 backdrop-blur-md sticky top-0 w-full z-50 border-b border-outline-variant/60 shadow-2xs">
-      <div class="flex justify-between items-center h-20 px-6 md:px-margin-desktop max-w-container-max mx-auto">
+    <header class="bg-[#FAFAF8] sticky top-0 w-full z-50 border-b border-outline-variant/50">
+      <div class="flex justify-between items-center h-16 px-6 md:px-margin-desktop max-w-container-max mx-auto">
         
-        <!-- Left: Official SamadhanSetu Logo Asset -->
-        <a class="flex items-center gap-3 cursor-pointer group py-1 bg-transparent p-0 border-none shadow-none" data-route="${isAuthenticated ? 'citizen-home' : 'intro'}">
-          <img 
-            src="/assests/logo.png" 
-            alt="SamadhanSetu — Civic Innovation Platform" 
-            class="w-[130px] sm:w-[145px] md:w-[160px] h-auto max-w-full object-contain block bg-transparent transition-transform duration-300 ease-out group-hover:scale-[1.03]" 
-            onerror="this.onerror=null; this.src='/logo.png';"
-          />
-        </a>
+        <!-- Left: Official SamadhanSetu Logo & Subtle Divider -->
+        <div class="flex items-center gap-4">
+          <a class="flex items-center cursor-pointer group py-1 bg-transparent p-0 border-none shadow-none" data-route="${isMentor ? 'mentor-dashboard' : isAuthenticated ? 'citizen-home' : 'intro'}">
+            <img 
+              src="/assests/logo.png" 
+              alt="SamadhanSetu — Civic Innovation Platform" 
+              class="w-[125px] sm:w-[140px] h-auto max-w-full object-contain block bg-transparent" 
+              onerror="this.onerror=null; this.src='/logo.png';"
+            />
+          </a>
+          ${isMentor ? `
+            <div class="h-4 w-px bg-outline-variant/50 hidden sm:block"></div>
+          ` : ''}
+        </div>
 
-        ${isAuthenticated ? `
+        ${isMentor ? `
+          <!-- Center Navigation (Clean Editorial Typography & Refined Underline) -->
+          <nav class="hidden md:flex items-center gap-8">
+            <a data-route="mentor-dashboard" class="cursor-pointer font-label-md text-sm font-semibold transition-colors duration-200 py-1 relative ${activeRoute === 'mentor-dashboard' || activeRoute === 'university-dashboard' || activeRoute === 'university-hub' ? 'text-brand-indigo font-bold border-b-2 border-brand-indigo' : 'text-[#4A4D73] hover:text-brand-indigo'}">
+              Dashboard
+            </a>
+            <a data-route="validation-queue" class="cursor-pointer font-label-md text-sm font-semibold transition-colors duration-200 py-1 relative ${activeRoute === 'validation-queue' || activeRoute === 'pattern-validation' || activeRoute === 'published-challenges' ? 'text-brand-indigo font-bold border-b-2 border-brand-indigo' : 'text-[#4A4D73] hover:text-brand-indigo'}">
+              Opportunities
+            </a>
+            <a data-route="university-profile" class="cursor-pointer font-label-md text-sm font-semibold transition-colors duration-200 py-1 relative ${activeRoute === 'university-profile' ? 'text-brand-indigo font-bold border-b-2 border-brand-indigo' : 'text-[#4A4D73] hover:text-brand-indigo'}">
+              My University
+            </a>
+            <a data-route="university-projects" class="cursor-pointer font-label-md text-sm font-semibold transition-colors duration-200 py-1 relative ${activeRoute === 'university-projects' || activeRoute === 'project-detail' || activeRoute === 'completed-solution' || activeRoute === 'team-formation' ? 'text-brand-indigo font-bold border-b-2 border-brand-indigo' : 'text-[#4A4D73] hover:text-brand-indigo'}">
+              Projects
+            </a>
+            <a data-route="university-collaborations" class="cursor-pointer font-label-md text-sm font-semibold transition-colors duration-200 py-1 relative ${activeRoute === 'university-collaborations' ? 'text-brand-indigo font-bold border-b-2 border-brand-indigo' : 'text-[#4A4D73] hover:text-brand-indigo'}">
+              Collaborations
+            </a>
+          </nav>
+
+          <!-- Right Action Controls (Refined & Lightweight) -->
+          <div class="hidden md:flex items-center gap-4 relative">
+            <!-- Notification Bell Icon (Subtle soft lavender background square) -->
+            <div class="relative">
+              <button id="nav-notification-btn" class="w-9 h-9 rounded-lg bg-[#F1F0FA] hover:bg-[#E5E3F5] border border-outline-variant/40 text-[#24285B] flex items-center justify-center transition-colors relative cursor-pointer" title="Notifications">
+                <span class="material-symbols-outlined text-lg">notifications</span>
+                <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#3F3A8A]"></span>
+              </button>
+
+              <!-- Notifications Dropdown Panel -->
+              <div id="nav-notification-dropdown" class="hidden absolute right-0 mt-3 w-80 sm:w-96 bg-white rounded-2xl border border-outline-variant/70 shadow-xl p-4 z-50 space-y-3">
+                <div class="flex items-center justify-between border-b border-outline-variant/40 pb-2">
+                  <span class="font-bold text-[#24285B] text-xs uppercase tracking-wider">Notifications</span>
+                  <button data-route="validation-queue" class="text-xs font-bold text-[#3F3A8A] hover:underline">View All</button>
+                </div>
+                <div class="space-y-2 max-h-64 overflow-y-auto">
+                  <div data-route="validation-queue" class="p-2.5 rounded-xl bg-[#F1F0FA] border border-[#3F3A8A]/20 cursor-pointer hover:bg-white transition-all space-y-0.5">
+                    <div class="flex items-center justify-between text-xs font-bold text-[#24285B]">
+                      <span>New Matched Problem Request</span>
+                      <span class="text-[10px] text-on-surface-variant font-normal">10m ago</span>
+                    </div>
+                    <p class="text-[11px] text-on-surface-variant leading-snug">Water Hand Pump Discoloration in Gumla has been matched to your research department.</p>
+                  </div>
+                  <div data-route="explore-challenges" class="p-2.5 rounded-xl bg-surface-container-low cursor-pointer hover:bg-white transition-all space-y-0.5">
+                    <div class="flex items-center justify-between text-xs font-bold text-[#24285B]">
+                      <span>Student Proposal Submitted</span>
+                      <span class="text-[10px] text-on-surface-variant font-normal">2h ago</span>
+                    </div>
+                    <p class="text-[11px] text-on-surface-variant leading-snug">Team AquaInnovate submitted a proposal for Canal Siltation Challenge.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- University Profile Avatar & Dropdown Trigger -->
+            <div class="relative">
+              <button id="nav-profile-btn" class="flex items-center gap-2 p-1.5 pr-2.5 rounded-xl bg-[#F1F0FA] hover:bg-[#E5E3F5] border border-outline-variant/40 transition-all cursor-pointer">
+                <div class="w-7 h-7 rounded-lg bg-[#24285B] text-white flex items-center justify-center font-bold text-xs">
+                  U
+                </div>
+                <span class="font-semibold text-xs text-[#24285B] max-w-[130px] truncate">Ranchi University</span>
+                <span class="material-symbols-outlined text-base text-on-surface-variant">expand_more</span>
+              </button>
+
+              <!-- Profile Dropdown Menu -->
+              <div id="nav-profile-dropdown" class="hidden absolute right-0 mt-3 w-56 bg-white rounded-2xl border border-outline-variant/70 shadow-xl p-2 z-50 space-y-1">
+                <div class="p-3 border-b border-outline-variant/40">
+                  <div class="font-bold text-brand-indigo text-sm">Ranchi University</div>
+                  <div class="text-[11px] text-on-surface-variant">University Partner Portal</div>
+                </div>
+
+                <a data-route="university-profile" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-on-surface-variant hover:text-brand-violet hover:bg-surface-container-low rounded-xl cursor-pointer">
+                  <span class="material-symbols-outlined text-base">school</span> University Profile
+                </a>
+
+                <a data-route="university-profile" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-on-surface-variant hover:text-brand-violet hover:bg-surface-container-low rounded-xl cursor-pointer">
+                  <span class="material-symbols-outlined text-base">settings</span> Institution Settings
+                </a>
+
+                <a id="nav-help-btn" class="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-on-surface-variant hover:text-brand-violet hover:bg-surface-container-low rounded-xl cursor-pointer">
+                  <span class="material-symbols-outlined text-base">help</span> Help & Support
+                </a>
+
+                <div class="border-t border-outline-variant/40 pt-1">
+                  <button id="nav-signout-btn" class="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-error hover:bg-error/10 rounded-xl cursor-pointer">
+                    <span class="material-symbols-outlined text-base">logout</span> Sign Out
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ` : isAuthenticated ? `
           <!-- Center Navigation (AUTHENTICATED CITIZEN) -->
           <nav class="hidden md:flex items-center gap-8">
             <a data-route="citizen-home" class="nav-link-indicator cursor-pointer font-label-md text-sm font-semibold transition-colors duration-200 ${activeRoute === 'citizen-home' || activeRoute === 'citizen-onboarding' ? 'active text-brand-violet font-bold border-b-2 border-brand-violet pb-0.5' : 'text-on-surface-variant hover:text-brand-indigo'}">

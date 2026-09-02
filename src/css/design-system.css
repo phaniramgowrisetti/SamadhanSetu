@@ -4,37 +4,37 @@
 
 :root {
   /* Brand Core Colors */
-  --brand-indigo: #352C85;
-  --brand-violet: #5B3FD6;
-  --brand-teal: #159B8C;
-  --brand-warm-white: #fcf8ff;
+  --brand-indigo: #24285B;
+  --brand-violet: #3F3A8A;
+  --brand-teal: #2C8C86;
+  --brand-warm-white: #FAFAF8;
+  --brand-lavender-subtle: #F1F0FA;
 
-  /* Material 3 Palette Tokens */
-  --color-primary: #1e106f;
-  --color-primary-container: #352c85;
-  --color-on-primary-container: #a199f8;
-  --color-secondary: #5b3fd6;
-  --color-secondary-container: #745bf0;
-  --color-on-secondary-container: #fffbff;
-  --color-tertiary: #002a25;
-  --color-tertiary-container: #00423b;
-  --color-on-tertiary-container: #3fb5a5;
-  --color-tertiary-fixed: #86f6e4;
+  /* Material Palette Tokens */
+  --color-primary: #24285B;
+  --color-primary-container: #3F3A8A;
+  --color-on-primary-container: #EDEBFA;
+  --color-secondary: #3F3A8A;
+  --color-secondary-container: #3F3A8A;
+  --color-on-secondary-container: #FAFAF8;
+  --color-tertiary: #2C8C86;
+  --color-tertiary-container: #2C8C86;
+  --color-on-tertiary-container: #FAFAF8;
   
-  --color-background: #fcf8ff;
-  --color-on-background: #1c1b21;
+  --color-background: #FAFAF8;
+  --color-on-background: #24285B;
 
-  --color-surface: #fcf8ff;
-  --color-surface-bright: #fcf8ff;
-  --color-surface-dim: #dcd8e1;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f6f2fa;
-  --color-surface-container: #f0ecf5;
-  --color-surface-container-high: #ebe6ef;
-  --color-surface-container-highest: #e5e1e9;
-  --color-surface-variant: #e5e1e9;
-  --color-on-surface: #1c1b21;
-  --color-on-surface-variant: #474551;
+  --color-surface: #FAFAF8;
+  --color-surface-bright: #FAFAF8;
+  --color-surface-dim: #E5E4F0;
+  --color-surface-container-lowest: #FFFFFF;
+  --color-surface-container-low: #F1F0FA;
+  --color-surface-container: #EBE9F5;
+  --color-surface-container-high: #E5E3F0;
+  --color-surface-container-highest: #DFDCEB;
+  --color-surface-variant: #DFDCEB;
+  --color-on-surface: #24285B;
+  --color-on-surface-variant: #4A4D73;
 
   --color-outline: #787583;
   --color-outline-variant: #c8c4d3;

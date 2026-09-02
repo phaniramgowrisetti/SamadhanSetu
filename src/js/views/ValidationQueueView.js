@@ -2,74 +2,291 @@ import { renderHeader } from '../components/Header.js';
 import { renderFooter } from '../components/Footer.js';
 import { AppState } from '../app.js';
 
+/**
+ * PAGE 2 — OPPORTUNITIES
+ * Matched community problems for Ranchi University.
+ */
 export function renderValidationQueueView() {
-  const patterns = AppState.runPatternDetection();
-
   return `
-    ${renderHeader('mentor-dashboard')}
+    <div class="min-h-screen flex flex-col justify-between bg-[#FAFAF8] text-on-surface">
+      
+      ${renderHeader('validation-queue')}
 
-    <main class="flex-grow pt-8 pb-24 px-6 md:px-margin-desktop max-w-container-max mx-auto w-full">
-      <!-- Back Link -->
-      <div class="mb-6">
-        <button data-route="mentor-dashboard" class="inline-flex items-center gap-1.5 text-brand-indigo hover:text-brand-violet font-label-md text-sm font-semibold transition-colors group">
-          <span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span> Back to Mentor Dashboard
-        </button>
-      </div>
+      <main class="flex-grow pt-8 pb-20 px-6 md:px-margin-desktop max-w-[1240px] mx-auto w-full space-y-8">
+        
+        <!-- Header -->
+        <div class="space-y-2 border-b border-outline-variant/60 pb-6">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-[#3F3A8A] uppercase tracking-widest bg-[#F1F0FA] border border-[#3F3A8A]/20 px-3 py-1 rounded-full">
+              MATCHED OPPORTUNITIES
+            </span>
+            <span class="text-xs font-semibold text-slate-600">• Ranchi University</span>
+          </div>
 
-      <!-- Hero Header -->
-      <div class="max-w-3xl mb-12">
-        <span class="font-label-sm text-brand-violet uppercase tracking-widest text-xs font-bold bg-surface-container-low px-4 py-1.5 rounded-full border border-outline-variant/40 inline-block mb-3">
-          VALIDATION QUEUE
-        </span>
+          <h1 class="font-display-lg text-[#24285B] text-3xl sm:text-4xl font-extrabold tracking-tight">
+            Community Problems for Your Institution
+          </h1>
 
-        <h1 class="font-display-lg text-brand-indigo text-4xl font-extrabold mb-3">
-          Patterns waiting to be understood.
-        </h1>
+          <p class="font-body-md text-on-surface-variant text-sm sm:text-base leading-relaxed max-w-3xl">
+            Review validated community problems matched to your university's expertise and determine whether your institution can take responsibility for developing a solution.
+          </p>
+        </div>
 
-        <p class="font-body-lg text-on-surface-variant text-base md:text-lg leading-relaxed">
-          Community observations can reveal possible shared problems. Review the evidence to decide whether a pattern is ready to become a challenge.
-        </p>
-      </div>
+        <!-- Filter Controls & Tabs -->
+        <div class="space-y-4">
+          <!-- Tabs -->
+          <div class="flex items-center gap-2 border-b border-outline-variant/60 overflow-x-auto pb-1 text-xs sm:text-sm font-bold">
+            <button class="px-4 py-2 text-brand-indigo border-b-2 border-brand-indigo font-bold shrink-0 cursor-pointer">
+              NEW REQUESTS (3)
+            </button>
+            <button class="px-4 py-2 text-on-surface-variant hover:text-brand-indigo font-semibold shrink-0 cursor-pointer">
+              UNDER EVALUATION (5)
+            </button>
+            <button class="px-4 py-2 text-on-surface-variant hover:text-brand-indigo font-semibold shrink-0 cursor-pointer">
+              READY FOR DECISION (2)
+            </button>
+            <button class="px-4 py-2 text-on-surface-variant hover:text-brand-indigo font-semibold shrink-0 cursor-pointer">
+              ACCEPTED (12)
+            </button>
+            <button class="px-4 py-2 text-on-surface-variant hover:text-brand-indigo font-semibold shrink-0 cursor-pointer">
+              DECLINED (1)
+            </button>
+          </div>
 
-      <!-- Editorial Vertical Pattern Queue -->
-      <div class="max-w-4xl space-y-6">
-        ${patterns.map((pat, idx) => `
-          <div class="bg-white p-8 rounded-2xl border border-outline-variant shadow-sm hover:border-brand-indigo transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <!-- Search & Dropdown Filters -->
+          <div class="flex flex-col sm:flex-row items-center gap-3">
+            <div class="relative w-full sm:flex-1">
+              <span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-base">search</span>
+              <input type="text" placeholder="Search opportunities by title, domain, or district..." class="w-full pl-9 pr-4 py-2 bg-white rounded-xl border border-outline-variant/70 text-xs text-brand-indigo focus:outline-none focus:border-brand-violet" />
+            </div>
+
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+              <select class="px-3 py-2 bg-white rounded-xl border border-outline-variant/70 text-xs font-semibold text-brand-indigo focus:outline-none">
+                <option>Domain: All</option>
+                <option>Water & Sanitation</option>
+                <option>Agriculture</option>
+                <option>Energy</option>
+              </select>
+
+              <select class="px-3 py-2 bg-white rounded-xl border border-outline-variant/70 text-xs font-semibold text-brand-indigo focus:outline-none">
+                <option>District: All</option>
+                <option>Gumla</option>
+                <option>Ranchi</option>
+                <option>Khunti</option>
+              </select>
+
+              <select class="px-3 py-2 bg-white rounded-xl border border-outline-variant/70 text-xs font-semibold text-brand-indigo focus:outline-none">
+                <option>Priority: All</option>
+                <option>High</option>
+                <option>Medium</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- TWO COLUMN LAYOUT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- LEFT COLUMN — OPPORTUNITY CARDS (8 COLS) -->
+          <div class="lg:col-span-8 space-y-6">
             
-            <div class="flex items-start gap-6">
-              <div class="font-display-lg text-brand-indigo/30 text-4xl font-extrabold font-mono shrink-0">
-                0${idx + 1}
+            <!-- CARD 1 -->
+            <div class="bg-white p-6 rounded-2xl border border-outline-variant/70 shadow-2xs hover:border-brand-indigo transition-all space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-brand-indigo bg-brand-indigo/10 border border-brand-indigo/20 px-3 py-1 rounded-full">
+                    Water & Sanitation
+                  </span>
+                  <span class="text-[10px] font-bold text-red-700 bg-red-500/10 border border-red-500/20 px-2.5 py-0.5 rounded-full">
+                    High Priority
+                  </span>
+                </div>
+                <span class="text-xs text-on-surface-variant font-mono">ID: REQ-2026-084</span>
               </div>
 
               <div class="space-y-2">
-                <div class="flex items-center gap-3">
-                  <span class="px-3 py-1 rounded-full ${pat.status === 'Validated' ? 'bg-brand-teal/10 text-brand-teal' : 'bg-brand-violet/10 text-brand-violet'} text-[10px] font-bold uppercase tracking-wider">
-                    ${pat.status === 'Validated' ? '✓ Validated Challenge Created' : 'NEEDS HUMAN VALIDATION'}
+                <h3 class="font-headline-sm text-brand-indigo text-xl font-bold">Unsafe Drinking Water in Gumla</h3>
+                <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+                  High levels of fluoride detected in local borewells leading to health concerns. Community reports frequent illness and the need for a sustainable purification solution.
+                </p>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 p-3 bg-surface-container-low rounded-xl border border-outline-variant/40 text-xs">
+                <div>
+                  <span class="text-[10px] text-on-surface-variant font-bold uppercase block">OBSERVATIONS</span>
+                  <span class="font-bold text-brand-indigo">12 Validated Reports</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-on-surface-variant font-bold uppercase block">LOCATIONS</span>
+                  <span class="font-bold text-brand-indigo">5 Affected Villages</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-on-surface-variant font-bold uppercase block">DISTRICT</span>
+                  <span class="font-bold text-brand-indigo">Gumla, Jharkhand</span>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider block">REQUIRED EXPERTISE</span>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-xs font-medium bg-white text-brand-indigo px-2.5 py-1 rounded-lg border border-outline-variant/50">Environmental Engineering</span>
+                  <span class="text-xs font-medium bg-white text-brand-indigo px-2.5 py-1 rounded-lg border border-outline-variant/50">Public Health</span>
+                  <span class="text-xs font-medium bg-white text-brand-indigo px-2.5 py-1 rounded-lg border border-outline-variant/50">Material Science</span>
+                </div>
+              </div>
+
+              <div class="p-3 bg-brand-violet/5 rounded-xl border border-brand-violet/20 text-xs text-on-surface-variant">
+                <span class="font-bold text-brand-indigo">Why Ranchi University was matched:</span>
+                Matched due to existing Water Research Lab infrastructure and Department of Environmental Engineering faculty specializations.
+              </div>
+
+              <div class="pt-2 flex justify-end">
+                <button data-validate-pattern="pat-1" data-route="pattern-validation" class="bg-brand-indigo text-white px-6 py-2.5 rounded-full font-label-md text-xs font-bold hover:bg-brand-violet transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                  <span>Review Opportunity</span>
+                  <span class="material-symbols-outlined text-base">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="bg-white p-6 rounded-2xl border border-outline-variant/70 shadow-2xs hover:border-brand-indigo transition-all space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-emerald-800 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">
+                    Agriculture
                   </span>
-                  <span class="text-xs font-bold text-brand-indigo font-mono">${pat.signalCount} Related Signals</span>
+                  <span class="text-[10px] font-bold text-amber-700 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-full">
+                    Medium Priority
+                  </span>
+                </div>
+                <span class="text-xs text-on-surface-variant font-mono">ID: REQ-2026-092</span>
+              </div>
+
+              <div class="space-y-2">
+                <h3 class="font-headline-sm text-brand-indigo text-xl font-bold">Crop Disease Affecting Farmers</h3>
+                <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+                  Repeated reports from farming communities indicate crop damage affecting agricultural productivity and local livelihoods.
+                </p>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 p-3 bg-surface-container-low rounded-xl border border-outline-variant/40 text-xs">
+                <div>
+                  <span class="text-[10px] text-on-surface-variant font-bold uppercase block">OBSERVATIONS</span>
+                  <span class="font-bold text-brand-indigo">8 Validated Reports</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-on-surface-variant font-bold uppercase block">LOCATIONS</span>
+                  <span class="font-bold text-brand-indigo">3 Affected Villages</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-on-surface-variant font-bold uppercase block">DISTRICT</span>
+                  <span class="font-bold text-brand-indigo">Ranchi, Jharkhand</span>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider block">REQUIRED EXPERTISE</span>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-xs font-medium bg-white text-brand-indigo px-2.5 py-1 rounded-lg border border-outline-variant/50">Agricultural Science</span>
+                  <span class="text-xs font-medium bg-white text-brand-indigo px-2.5 py-1 rounded-lg border border-outline-variant/50">Plant Pathology</span>
+                </div>
+              </div>
+
+              <div class="p-3 bg-brand-violet/5 rounded-xl border border-brand-violet/20 text-xs text-on-surface-variant">
+                <span class="font-bold text-brand-indigo">Why Ranchi University was matched:</span>
+                Matched due to Department of Agriculture research history in disease detection models.
+              </div>
+
+              <div class="pt-2 flex justify-end">
+                <button data-validate-pattern="pat-2" data-route="pattern-validation" class="bg-brand-indigo text-white px-6 py-2.5 rounded-full font-label-md text-xs font-bold hover:bg-brand-violet transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                  <span>Review Opportunity</span>
+                  <span class="material-symbols-outlined text-base">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT SIDEBAR (4 COLS) -->
+          <div class="lg:col-span-4 space-y-6">
+            
+            <!-- WHY THESE OPPORTUNITIES? -->
+            <div class="bg-white p-5 rounded-2xl border border-outline-variant/70 shadow-2xs space-y-4">
+              <h3 class="font-headline-sm text-brand-indigo text-sm font-bold uppercase tracking-wider">
+                WHY THESE OPPORTUNITIES?
+              </h3>
+              
+              <div class="space-y-3 text-xs text-on-surface-variant">
+                <div class="space-y-1">
+                  <div class="font-bold text-brand-indigo flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-base text-brand-violet">verified</span>
+                    Validated Community Need
+                  </div>
+                  <p class="text-[11px] leading-relaxed">Cross-verified by civic AI and regional field observations.</p>
                 </div>
 
-                <h3 class="font-headline-md text-brand-indigo text-2xl font-bold">${pat.title}</h3>
-                <p class="font-body-md text-on-surface-variant text-sm max-w-xl leading-relaxed">${pat.summary}</p>
-                
-                <div class="flex items-center gap-4 text-xs font-semibold text-brand-indigo pt-1">
-                  <span>📍 Across ${pat.locations.join(' · ')}</span>
-                  <span>•</span>
-                  <span>👥 Impact: ${pat.affectedGroups.join(', ')}</span>
+                <div class="space-y-1">
+                  <div class="font-bold text-brand-indigo flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-base text-brand-teal">account_balance</span>
+                    Institutional Match
+                  </div>
+                  <p class="text-[11px] leading-relaxed">Directly aligns with Ranchi University's faculty expertise and labs.</p>
+                </div>
+
+                <div class="space-y-1">
+                  <div class="font-bold text-brand-indigo flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-base text-emerald-600">lightbulb</span>
+                    Potential for Innovation
+                  </div>
+                  <p class="text-[11px] leading-relaxed">Suitable for multidisciplinary student innovation teams.</p>
                 </div>
               </div>
             </div>
 
-            <button data-validate-pattern="${pat.id}" class="w-full md:w-auto bg-brand-indigo text-white px-6 py-3 rounded-full font-label-md text-xs font-bold hover:bg-brand-violet transition-all shrink-0 flex items-center justify-center gap-1.5 shadow-sm">
-              <span>${pat.status === 'Validated' ? 'View Validation Detail' : 'Review Pattern →'}</span>
-            </button>
+            <!-- OPPORTUNITY PIPELINE -->
+            <div class="bg-white p-5 rounded-2xl border border-outline-variant/70 shadow-2xs space-y-4">
+              <h3 class="font-headline-sm text-brand-indigo text-sm font-bold uppercase tracking-wider">
+                OPPORTUNITY PIPELINE
+              </h3>
+
+              <div class="space-y-3 text-xs">
+                <div class="flex items-center justify-between p-2.5 bg-surface-container-low rounded-xl font-bold text-brand-indigo">
+                  <span>New Requests</span>
+                  <span class="px-2 py-0.5 rounded-full bg-brand-violet text-white text-[11px]">3</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 bg-surface-container-low rounded-xl font-bold text-brand-indigo">
+                  <span>Under Evaluation</span>
+                  <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-800 text-[11px]">5</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 bg-surface-container-low rounded-xl font-bold text-brand-indigo">
+                  <span>Ready for Decision</span>
+                  <span class="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-800 text-[11px]">2</span>
+                </div>
+                <div class="flex items-center justify-between p-2.5 bg-surface-container-low rounded-xl font-bold text-brand-indigo">
+                  <span>Accepted Opportunities</span>
+                  <span class="px-2 py-0.5 rounded-full bg-brand-teal text-white text-[11px]">12</span>
+                </div>
+              </div>
+            </div>
 
           </div>
-        `).join('')}
-      </div>
 
-    </main>
+        </div>
 
-    ${renderFooter()}
+      </main>
+
+      <footer class="bg-white border-t border-outline-variant/60 py-8 px-6 md:px-margin-desktop text-xs text-on-surface-variant">
+        <div class="max-w-[1240px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div class="font-extrabold text-brand-indigo text-base tracking-tight">SamadhanSetu</div>
+          <div>© 2026 SamadhanSetu. Civic Innovation Ecosystem.</div>
+          <div class="flex items-center gap-4 font-semibold text-brand-indigo">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help Center</a>
+          </div>
+        </div>
+      </footer>
+
+    </div>
   `;
 }
