@@ -1,0 +1,125 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useApp } from '../../context/AppContext.jsx';
+
+export const ProjectWorkspacePage = () => {
+  const navigate = useNavigate();
+  const { projects } = useApp();
+
+  const proj = projects[0] || {
+    id: 'PROJ-2026-01',
+    title: 'Solar Water Quality Mesh - Gumla District Pilot',
+    challengeTitle: 'Rural Water Quality Monitoring & Rapid Contamination Detection',
+    teamName: 'AquaGuard Innovation Lab',
+    mentor: 'Dr. Alok Kumar',
+    status: 'Deployment Phase',
+    progress: 75
+  };
+
+  return (
+    <div className="py-12 px-6 md:px-margin-desktop max-w-container-max mx-auto space-y-8">
+      <div className="flex items-center justify-between border-b pb-4">
+        <div>
+          <span className="text-xs font-mono font-bold text-slate-400">{proj.id} • ACTIVE STUDENT PROJECT WORKSPACE</span>
+          <h1 className="text-3xl font-extrabold text-brand-indigo mt-1">{proj.title}</h1>
+        </div>
+        <span className="text-xs font-bold bg-indigo-50 text-brand-indigo px-3.5 py-1.5 rounded-full border border-indigo-200">
+          {proj.status} ({proj.progress}%)
+        </span>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-8 space-y-6">
+          <div className="bg-white border border-outline-variant/80 rounded-2xl p-6 shadow-sm space-y-4">
+            <h3 className="text-lg font-bold text-brand-indigo">Project Milestones & Sprint Progress</h3>
+
+            <div className="space-y-3">
+              <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-emerald-600 text-lg">check_circle</span>
+                  <span className="font-bold text-[#1A1A1A]">1. Optical Turbidity Sensor Calibration</span>
+                </div>
+                <span className="text-emerald-700 font-bold">Completed</span>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-brand-indigo text-lg">pending</span>
+                  <span className="font-bold text-[#1A1A1A]">2. Gumla Sector 4 Pilot Deployment</span>
+                </div>
+                <span className="text-brand-indigo font-bold">In Progress (75%)</span>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-[#F8F8F6] border border-outline-variant/40 flex items-center justify-between text-xs text-slate-500">
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-base">schedule</span>
+                  <span className="font-bold">3. Community Dashboard & SMS Alert Gateway Integration</span>
+                </div>
+                <span>Pending</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="lg:col-span-4 space-y-6">
+          <div className="bg-white border border-outline-variant/80 rounded-2xl p-6 shadow-sm space-y-4 text-xs">
+            <h3 className="text-base font-bold text-brand-indigo border-b pb-2">Project Overview</h3>
+            <div>
+              <span className="text-slate-400 block text-[10px] uppercase">Assigned Faculty Mentor</span>
+              <span className="font-bold text-[#1A1A1A]">{proj.mentor}</span>
+            </div>
+            <div>
+              <span className="text-slate-400 block text-[10px] uppercase">Team</span>
+              <span className="font-bold text-[#1A1A1A]">{proj.teamName}</span>
+            </div>
+            <div>
+              <span className="text-slate-400 block text-[10px] uppercase">Locations</span>
+              <span className="font-bold text-[#1A1A1A]">Gumla, Latehar, Simdega</span>
+            </div>
+            <button onClick={() => navigate('/student/impact')} className="w-full py-2.5 rounded-xl bg-[#159B8C] text-white font-bold hover:bg-teal-700 transition-colors">
+              View Community Impact →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const StudentImpactPage = () => {
+  return (
+    <div className="py-12 px-6 md:px-margin-desktop max-w-container-max mx-auto space-y-8">
+      <div className="space-y-2">
+        <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200">COMMUNITY IMPACT ENGINE</span>
+        <h1 className="text-3xl font-extrabold text-brand-indigo">Deploys & Community Impact</h1>
+        <p className="text-sm text-[#4A4D73]">Real-world impact metrics generated by student engineering projects.</p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-white border border-outline-variant/80 rounded-2xl p-6 shadow-sm space-y-2">
+          <span className="text-xs text-slate-400 font-bold uppercase">Villages Protected</span>
+          <span className="text-4xl font-extrabold text-brand-indigo font-mono">12</span>
+          <p className="text-xs text-emerald-600 font-semibold">Gumla & Latehar clusters</p>
+        </div>
+
+        <div className="bg-white border border-outline-variant/80 rounded-2xl p-6 shadow-sm space-y-2">
+          <span className="text-xs text-slate-400 font-bold uppercase">Population Covered</span>
+          <span className="text-4xl font-extrabold text-brand-indigo font-mono">4,800</span>
+          <p className="text-xs text-slate-500 font-semibold">Rural citizens protected</p>
+        </div>
+
+        <div className="bg-white border border-outline-variant/80 rounded-2xl p-6 shadow-sm space-y-2">
+          <span className="text-xs text-slate-400 font-bold uppercase">Contamination Alerts</span>
+          <span className="text-4xl font-extrabold text-brand-indigo font-mono">14</span>
+          <p className="text-xs text-amber-600 font-semibold">Preventative SMS warnings</p>
+        </div>
+
+        <div className="bg-white border border-outline-variant/80 rounded-2xl p-6 shadow-sm space-y-2">
+          <span className="text-xs text-slate-400 font-bold uppercase">Samples Validated</span>
+          <span className="text-4xl font-extrabold text-brand-indigo font-mono">142</span>
+          <p className="text-xs text-emerald-600 font-semibold">Optical telemetry logs</p>
+        </div>
+      </div>
+    </div>
+  );
+};
